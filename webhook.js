@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const { IncomingWebhook } = require("@slack/webhook");
 
 const SLACK_WEBHOOK_URL =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 // const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
