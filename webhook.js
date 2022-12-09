@@ -26,7 +26,7 @@ app.post("/webhook", async (req, res) => {
 
   console.log(info);
 
-  let pro = info.project.metric_alert.projects;
+  let pro = info.data.metric_alert.projects;
 
   let project;
 
