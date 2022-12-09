@@ -48,9 +48,9 @@ app.post("/webhook", async (req, res) => {
     channel: "#general",
     // pretext: `${info.data.description_title}`,
     username: "Streetrates",
-    color: info.action == "critical" ? "#FF0000" : "#00FF00",
+    color: info.action == "critical" ? "#ff0000" : "#00ff00",
     text:
-      info.project == "python-fastapi"
+      info.project[0] == "python-fastapi"
         ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`
         : `Slow Page Load on ${project}: The request to load page excceded 4 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`,
     attachments: [
