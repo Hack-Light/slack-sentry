@@ -17,9 +17,10 @@ app.use(cors());
 // Set up route for webhook
 app.post("/webhook", (req, res) => {
   // Process webhook data here
-  console.log(info);
 
   let info = req.body;
+
+  console.log(info);
 
   let project;
 
