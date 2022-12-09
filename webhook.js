@@ -5,7 +5,7 @@ const { IncomingWebhook } = require("@slack/webhook");
 const request = require("request");
 
 const SLACK_WEBHOOK_URL =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 // const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
@@ -22,7 +22,7 @@ app.post("/webhook", async (req, res) => {
 
   let info = req.body;
 
-  console.log(info);
+  // console.log(info);
 
   let project;
 
@@ -92,9 +92,9 @@ app.post("/webhook", async (req, res) => {
       }
     );
 
-    console.log(result);
+    // console.log(result);
 
-    return true;
+    // return true;
   } catch (error) {
     console.log(error);
   }
