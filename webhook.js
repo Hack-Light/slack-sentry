@@ -24,55 +24,61 @@ app.post("/webhook", async (req, res) => {
 
   let info = req.body;
 
-  let pro = info.data.metric_alert.projects[0];
-
-  let project;
-
-  // try {
-  if (pro == "javascript-react") {
-    project = "Streetrates Client";
-  }
-
-  if (pro == "javascript-react-jy") {
-    project = "Streetrates Admin";
-  }
-
-  if (pro == "python-fastapi") {
-    project = "Streetrates API";
-  }
-
   let type = Object.keys(info.data)[0];
 
   console.log(type);
 
+  let pro =
+    type == "error"
+      ? info.data.error.project
+      : info.data.metric_alert.projects[0];
+
+  let project;
+
+  // try {
+  if (pro == "javascript-react" || pro == 4504278718152704) {
+    project = "Streetrates Client";
+  }
+
+  if (pro == "javascript-react-jy" || pro == 4504279901863936) {
+    project = "Streetrates Admin";
+  }
+
+  if (pro == "python-fastapi" || pro == 4504278710943744) {
+    project = "Streetrates API";
+  }
+
+  let slackMessage;
+
   // Slack message format
-  const slackMessage = {
-    channel: "#general",
-    // pretext: `${info.data.description_title}`,
-    username: "Streetrates",
-    color: info.action == "critical" ? "#ff0000" : "#00ff00",
-    text:
-      pro == "python-fastapi"
-        ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`
-        : `Slow Page Load on ${project}: The request to load page excceded 4 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`,
-    attachments: [
-      {
-        fields: [
-          {
-            title: "Level",
-            value: info.action,
-            short: true,
-          },
-          {
-            title: "Message",
-            value: info.data.metric_alert.title,
-            short: true,
-          },
-          {
-            title: "Date",
-            value: new Date(info.data.metric_alert.date_created).toLocaleString(
-              "en-us",
-              {
+  if (type == "metric_alert") {
+    slackMessage = {
+      channel: "#general",
+      // pretext: `${info.data.description_title}`,
+      username: "Streetrates",
+      color: info.action == "critical" ? "#ff0000" : "#00ff00",
+      text:
+        pro == "python-fastapi"
+          ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`
+          : `Slow Page Load on ${project}: The request to load page excceded 4 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`,
+      attachments: [
+        {
+          fields: [
+            {
+              title: "Level",
+              value: info.action,
+              short: true,
+            },
+            {
+              title: "Message",
+              value: info.data.metric_alert.title,
+              short: true,
+            },
+            {
+              title: "Date",
+              value: new Date(
+                info.data.metric_alert.date_created
+              ).toLocaleString("en-us", {
                 weekday: "long",
                 year: "numeric",
                 month: "short",
@@ -80,19 +86,76 @@ app.post("/webhook", async (req, res) => {
                 hour: "numeric",
                 minute: "numeric",
                 second: "numeric",
-              }
-            ),
-            short: true,
-          },
-          {
-            title: "See More",
-            value: `<${info.data.web_url}|Go to Dashboard>`,
-            short: true,
-          },
-        ],
-      },
-    ],
-  };
+              }),
+              short: true,
+            },
+            {
+              title: "See More",
+              value: `<${info.data.web_url}|Go to Dashboard>`,
+              short: true,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  if (type == "error") {
+    slackMessage = {
+      channel: "#general",
+      // pretext: `${info.data.description_title}`,
+      username: "Streetrates",
+      color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
+      text: `An Error occured on ${project} . Visit <${info.data.error.web_url}|Dashboard> to see full details.`,
+      attachments: [
+        {
+          fields: [
+            {
+              title: "Level",
+              value: info.data.error.level,
+              short: true,
+            },
+            {
+              title: "URL",
+              value: info.data.error.culprit,
+              short: true,
+            },
+            {
+              title: "Error Message",
+              value: info.data.error.title,
+              short: true,
+            },
+            {
+              title: "Location",
+              value: info.data.error.location,
+              short: true,
+            },
+            {
+              title: "Date",
+              value: new Date(info.data.error.date_created).toLocaleString(
+                "en-us",
+                {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                }
+              ),
+              short: true,
+            },
+            {
+              title: "See More",
+              value: `<${info.data.error.web_url}|Go to Dashboard>`,
+              short: true,
+            },
+          ],
+        },
+      ],
+    };
+  }
 
   axios
     .post(SLACK_WEBHOOK_URL, slackMessage)
