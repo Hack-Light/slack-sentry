@@ -41,7 +41,7 @@ app.post("/webhook", async (req, res) => {
     project = "Streetrates API";
   }
 
-  let type = info.data.keys[0];
+  let type = Object.keys(info.data)[0];
 
   console.log(type);
 
