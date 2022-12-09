@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const { IncomingWebhook } = require("@slack/webhook");
+const request = require("request");
 
 const SLACK_WEBHOOK_URL =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 // const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
@@ -66,14 +67,30 @@ app.post("/webhook", async (req, res) => {
 
     // await slackWebhook.send(slackMessage);
 
-    let result = await fetch(SLACK_WEBHOOK_URL, {
-      method: "POST",
-      body: JSON.stringify(slackMessage),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${SLACK_TOKEN_SECRET}`,
-      //   },
-    });
+    // let result = await fetch(SLACK_WEBHOOK_URL, {
+    //   method: "POST",
+    //   body: JSON.stringify(slackMessage),
+    //   //   headers: {
+    //   //     "Content-Type": "application/json",
+    //   //     Authorization: `Bearer ${SLACK_TOKEN_SECRET}`,
+    //   //   },
+    // });
+
+    var payload = { text: "This is via an integration from Me - It is a test" };
+
+    var headers = { "Content-type": "application/json" };
+
+    request.post(
+      { url: webhook, payload: payload, headers: headers },
+      function (err, res) {
+        if (err) {
+          console.log(err);
+        }
+        if (res) {
+          console.log(res.body);
+        }
+      }
+    );
 
     console.log(result);
 
