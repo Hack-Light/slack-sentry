@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const { IncomingWebhook } = require("@slack/webhook");
 
 const SLACK_WEBHOOK_URL =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 // const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
@@ -40,6 +40,8 @@ app.post("/webhook", async (req, res) => {
 
     // Slack message format
     const slackMessage = {
+      channel: "#general",
+      username: "streetrates",
       text:
         info.project == "python-fastapi"
           ? `Slow Query Request on ${project}: The request to ${info.event.request.url} excceded 5 secs. Visit ${info.url} to see full info.`
