@@ -24,48 +24,52 @@ app.post("/webhook", (req, res) => {
 
   let project;
 
-  if (info.project == "javascript-react") {
-    project = "Streetrates Client";
+  try {
+    if (info.project == "javascript-react") {
+      project = "Streetrates Client";
+    }
+
+    if (info.project == "javascript-react-jy") {
+      project = "Streetrates Admin";
+    }
+
+    if (info.project == "python-fastapi") {
+      project = "Streetrates API";
+    }
+
+    // Slack message format
+    const slackMessage = {
+      text:
+        info.project == "python-fastapi"
+          ? `Slow Query Request on ${project}: The request to ${info.event.request.url} excceded 5 secs. Visit ${info.url} to see full info.`
+          : `Slow Page Load on ${project}: The request to ${info.event.request.url} excceded 4 secs. Visit ${info.url} to see full info.`,
+      attachments: [
+        {
+          fields: [
+            {
+              title: "Title",
+              value: info.title,
+              short: true,
+            },
+            {
+              title: "Message",
+              value: info.message,
+              short: true,
+            },
+          ],
+        },
+      ],
+    };
+
+    slackWebhook.send(slackMessage);
+
+    return true;
+  } catch (error) {
+    console.log(error);
   }
-
-  if (info.project == "javascript-react-jy") {
-    project = "Streetrates Admin";
-  }
-
-  if (info.project == "python-fastapi") {
-    project = "Streetrates API";
-  }
-
-  // Slack message format
-  const slackMessage = {
-    text:
-      info.project == "python-fastapi"
-        ? `Slow Query Request on ${project}: The request to ${info.event.request.url} excceded 5 secs. Visit ${info.url} to see full info.`
-        : `Slow Page Load on ${project}: The request to ${info.event.request.url} excceded 4 secs. Visit ${info.url} to see full info.`,
-    attachments: [
-      {
-        fields: [
-          {
-            title: "Title",
-            value: info.title,
-            short: true,
-          },
-          {
-            title: "Message",
-            value: info.message,
-            short: true,
-          },
-        ],
-      },
-    ],
-  };
-
-  slackWebhook.send(slackMessage);
-
-  return true;
 
   // Return a response
-  res.json({ message: "Webhook received" });
+  //   res.json({ message: "Webhook received" });
 });
 
 // Start the server
