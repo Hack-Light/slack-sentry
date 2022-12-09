@@ -24,7 +24,7 @@ app.post("/webhook", async (req, res) => {
 
   let info = req.body;
 
-  let pro = info.data.metric_alert.projects;
+  let pro = info.data.metric_alert.projects[0];
 
   console.log(pro);
 
@@ -50,7 +50,7 @@ app.post("/webhook", async (req, res) => {
     username: "Streetrates",
     color: info.action == "critical" ? "#ff0000" : "#00ff00",
     text:
-      info.project[0] == "python-fastapi"
+      pro == "python-fastapi"
         ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`
         : `Slow Page Load on ${project}: The request to load page excceded 4 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`,
     attachments: [
