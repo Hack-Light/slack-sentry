@@ -26,41 +26,54 @@ app.post("/webhook", async (req, res) => {
 
   console.log(info);
 
+  let pro = info.project.metric_alert.projects;
+
   let project;
 
   // try {
-  if (info.project == "javascript-react") {
+  if (pro == "javascript-react") {
     project = "Streetrates Client";
   }
 
-  if (info.project == "javascript-react-jy") {
+  if (pro == "javascript-react-jy") {
     project = "Streetrates Admin";
   }
 
-  if (info.project == "python-fastapi") {
+  if (pro == "python-fastapi") {
     project = "Streetrates API";
   }
 
   // Slack message format
   const slackMessage = {
     channel: "#general",
+    pretext: info.data.description_text,
     username: "Streetrates",
-    color: "danger",
+    color: info.action == "danger" ? "danger" : "good",
     text:
       info.project == "python-fastapi"
-        ? `Slow Query Request on ${project}: The request to ${info.event.request.url} excceded 5 secs. Visit <${info.url}|Dashboard > to see full details.`
-        : `Slow Page Load on ${project}: The request to ${info.event.request.url} excceded 4 secs. Visit <${info.url}|Dashboard> to see full info.`,
+        ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard > to see full details.`
+        : `Slow Page Load on ${project}: The request to load page excceded 4 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`,
     attachments: [
       {
         fields: [
           {
             title: "Level",
-            value: info.level,
+            value: info.action,
             short: true,
           },
           {
             title: "Message",
-            value: info.message,
+            value: info.data.metric_alert.title,
+            short: true,
+          },
+          {
+            title: "Date",
+            value: info.data.metric_alert.date_created,
+            short: true,
+          },
+          {
+            title: "See More",
+            value: info.data.web_url,
             short: true,
           },
         ],
