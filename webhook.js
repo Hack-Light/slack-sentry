@@ -24,9 +24,9 @@ app.post("/webhook", async (req, res) => {
 
   let info = req.body;
 
-  console.log(info);
-
   let pro = info.data.metric_alert.projects;
+
+  console.log(pro);
 
   let project;
 
@@ -51,7 +51,7 @@ app.post("/webhook", async (req, res) => {
     color: info.action == "critical" ? "#FF0000" : "#00FF00",
     text:
       info.project == "python-fastapi"
-        ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard > to see full details.`
+        ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`
         : `Slow Page Load on ${project}: The request to load page excceded 4 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`,
     attachments: [
       {
@@ -84,7 +84,7 @@ app.post("/webhook", async (req, res) => {
           },
           {
             title: "See More",
-            value: `<${info.data.web_url}>|Go to Dashboard`,
+            value: `<${info.data.web_url}|Go to Dashboard>`,
             short: true,
           },
         ],
