@@ -81,7 +81,7 @@ app.post("/webhook", async (req, res) => {
     var headers = { "Content-type": "application/json" };
 
     request.post(
-      { url: webhook, payload: payload, headers: headers },
+      { url: SLACK_WEBHOOK_URL, payload: payload, headers: headers },
       function (err, res) {
         if (err) {
           console.log(err);
