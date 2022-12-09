@@ -26,8 +26,6 @@ app.post("/webhook", async (req, res) => {
 
   let pro = info.data.metric_alert.projects[0];
 
-  console.log(pro);
-
   let project;
 
   // try {
@@ -42,6 +40,10 @@ app.post("/webhook", async (req, res) => {
   if (pro == "python-fastapi") {
     project = "Streetrates API";
   }
+
+  let type = info.data.keys[0];
+
+  console.log(type);
 
   // Slack message format
   const slackMessage = {
