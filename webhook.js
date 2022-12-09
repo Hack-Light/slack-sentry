@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+const fetch = require("node-fetch");
 const { IncomingWebhook } = require("@slack/webhook");
 
 const SLACK_WEBHOOK_URL =
   "https://hooks.slack.com/services/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";
 
-const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
+// const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
 const app = express();
 
@@ -61,7 +62,19 @@ app.post("/webhook", async (req, res) => {
       ],
     };
 
-    await slackWebhook.send(slackMessage);
+    // await slackWebhook.send(slackMessage);
+
+    let result = await fetch(SLACK_WEBHOOK_URL, {
+      method: "POST",
+      body: JSON.stringify(slackMessage),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${SLACK_TOKEN_SECRET}`,
+      //   },
+    });
+
+    console.log(result);
+
     return true;
   } catch (error) {
     console.log(error);
