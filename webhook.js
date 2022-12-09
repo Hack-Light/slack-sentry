@@ -45,6 +45,7 @@ app.post("/webhook", async (req, res) => {
   const slackMessage = {
     channel: "#general",
     username: "Streetrates",
+    color: "danger",
     text:
       info.project == "python-fastapi"
         ? `Slow Query Request on ${project}: The request to ${info.event.request.url} excceded 5 secs. Visit <${info.url}|Dashboard > to see full details.`
@@ -53,8 +54,8 @@ app.post("/webhook", async (req, res) => {
       {
         fields: [
           {
-            title: "Title",
-            value: info.title,
+            title: "Level",
+            value: info.level,
             short: true,
           },
           {
