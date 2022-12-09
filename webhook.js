@@ -46,9 +46,9 @@ app.post("/webhook", async (req, res) => {
   // Slack message format
   const slackMessage = {
     channel: "#general",
-    pretext: info.data.description_text,
+    pretext: `${info.data.description_title}`,
     username: "Streetrates",
-    color: info.action == "danger" ? "danger" : "good",
+    color: info.action == "critical" ? "#FF0000" : "#00FF00",
     text:
       info.project == "python-fastapi"
         ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard > to see full details.`
@@ -68,7 +68,18 @@ app.post("/webhook", async (req, res) => {
           },
           {
             title: "Date",
-            value: info.data.metric_alert.date_created,
+            value: new Date(info.data.metric_alert.date_created).toLocaleString(
+              "en-us",
+              {
+                weekday: "long",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+              }
+            ),
             short: true,
           },
           {
