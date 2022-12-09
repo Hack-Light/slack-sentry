@@ -3,7 +3,7 @@ const cors = require("cors");
 const { IncomingWebhook } = require("@slack/webhook");
 
 const SLACK_WEBHOOK_URL =
-  "https://hooks.slack.com/services/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";
+  "https://hooks.slack.com/services/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";
 
 const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
