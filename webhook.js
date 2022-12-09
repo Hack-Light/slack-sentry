@@ -1,4 +1,5 @@
 const express = require("express");
+const express = require("cors")
 
 const app = express();
 
