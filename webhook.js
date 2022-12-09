@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Set up route for webhook
-app.post("/webhook", (req, res) => {
+app.post("/webhook", async (req, res) => {
   // Process webhook data here
 
   let info = req.body;
@@ -61,8 +61,7 @@ app.post("/webhook", (req, res) => {
       ],
     };
 
-    slackWebhook.send(slackMessage);
-
+    await slackWebhook.send(slackMessage);
     return true;
   } catch (error) {
     console.log(error);
