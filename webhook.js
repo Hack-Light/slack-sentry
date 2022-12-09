@@ -1,10 +1,11 @@
 const express = require("express");
-const { WebhookClient } = require("@slack/webhook");
+const cors = require("cors");
+const { IncomingWebhook } = require("@slack/webhook");
 
 const SLACK_WEBHOOK_URL =
   "https://hooks.slack.com/services/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";
 
-const slackWebhook = new WebhookClient(SLACK_WEBHOOK_URL);
+const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
 const app = express();
 
