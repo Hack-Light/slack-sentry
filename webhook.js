@@ -24,7 +24,7 @@ app.post("/webhook", async (req, res) => {
 
   let info = req.body;
 
-  // console.log(info);
+  console.log(info);
 
   let project;
 
@@ -43,12 +43,12 @@ app.post("/webhook", async (req, res) => {
 
   // Slack message format
   const slackMessage = {
-    // channel: "#general",
-    username: "streetrates",
+    channel: "#general",
+    username: "Streetrates",
     text:
       info.project == "python-fastapi"
-        ? `Slow Query Request on ${project}: The request to ${info.event.request.url} excceded 5 secs. Visit ${info.url} to see full info.`
-        : `Slow Page Load on ${project}: The request to ${info.event.request.url} excceded 4 secs. Visit ${info.url} to see full info.`,
+        ? `Slow Query Request on ${project}: The request to ${info.event.request.url} excceded 5 secs. Visit <${info.url}|Dashboard > to see full details.`
+        : `Slow Page Load on ${project}: The request to ${info.event.request.url} excceded 4 secs. Visit <${info.url}|Dashboard> to see full info.`,
     attachments: [
       {
         fields: [
