@@ -46,7 +46,7 @@ app.post("/webhook", async (req, res) => {
   // Slack message format
   const slackMessage = {
     channel: "#general",
-    pretext: `${info.data.description_title}`,
+    // pretext: `${info.data.description_title}`,
     username: "Streetrates",
     color: info.action == "critical" ? "#FF0000" : "#00FF00",
     text:
@@ -84,7 +84,7 @@ app.post("/webhook", async (req, res) => {
           },
           {
             title: "See More",
-            value: info.data.web_url,
+            value: `<${info.data.web_url}>|Go to Dashboard`,
             short: true,
           },
         ],
