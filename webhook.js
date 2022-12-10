@@ -41,7 +41,7 @@ app.post("/webhook", async (req, res) => {
     pro = info.data.metric_alert.projects[0];
   }
 
-  if (type == "metric_alert") {
+  if (type == "event") {
     pro = info.data.event.project;
   }
 
