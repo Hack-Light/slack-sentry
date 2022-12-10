@@ -118,7 +118,7 @@ app.post("/webhook", async (req, res) => {
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
       color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
-      text: `An Error occured on ${project} . Visit <${info.data.error.web_url}|Dashboard> to see full details.`,
+      text: `An Error occured on ${project} . Visit <${info.data.error.datetime}|Dashboard> to see full details.`,
       attachments: [
         {
           fields: [
@@ -144,7 +144,7 @@ app.post("/webhook", async (req, res) => {
             },
             {
               title: "Date",
-              value: new Date(info.data.error.date_created).toLocaleString(
+              value: new Date(info.data.error.datetime).toLocaleString(
                 "en-us",
                 {
                   weekday: "long",
@@ -161,6 +161,63 @@ app.post("/webhook", async (req, res) => {
             {
               title: "See More",
               value: `<${info.data.error.web_url}|Go to Dashboard>`,
+              short: true,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  if (type == "issue") {
+    slackMessage = {
+      channel: "#devops",
+      // pretext: `${info.data.description_title}`,
+      username: "Streetrates",
+      color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
+      text: `An Error occured on ${project} . Visit <${info.data.issue.web_url}|Dashboard> to see full details.`,
+      attachments: [
+        {
+          fields: [
+            {
+              title: "Status",
+              value: info.data.issue.status,
+              short: true,
+            },
+            {
+              title: "Culprit",
+              value: info.data.issue.culprit,
+              short: true,
+            },
+            {
+              title: "Error Message",
+              value: info.data.issue.title,
+              short: true,
+            },
+            {
+              title: "Unhandled",
+              value: info.data.issue.isUnhandled,
+              short: true,
+            },
+            {
+              title: "Date",
+              value: new Date(info.data.issue.firstseen).toLocaleString(
+                "en-us",
+                {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                }
+              ),
+              short: true,
+            },
+            {
+              title: "See More",
+              value: `<${info.data.issue.web_url}|Go to Dashboard>`,
               short: true,
             },
           ],
@@ -216,7 +273,7 @@ app.post("/webhook", async (req, res) => {
             },
             {
               title: "See More",
-              value: `<${info.data.event.web_url}|Go to Dashboard>`,
+              value: `<${info.data.event.datetime}|Go to Dashboard>`,
               short: true,
             },
           ],
