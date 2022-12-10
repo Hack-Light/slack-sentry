@@ -26,8 +26,8 @@ app.post("/webhook", async (req, res) => {
 
   let type = Object.keys(info.data)[0];
 
-  console.log(info);
-
+  // console.log(info);
+  let pro;
   // let pro =
   //   type == "error"
   //     ? info.data.error.project
@@ -46,7 +46,6 @@ app.post("/webhook", async (req, res) => {
   }
 
   let project;
-  let pro;
 
   // try {
   if (pro == "javascript-react" || pro == 4504278718152704) {
