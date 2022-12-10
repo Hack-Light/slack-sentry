@@ -102,9 +102,23 @@ app.post("/webhook", async (req, res) => {
               short: true,
             },
             {
-              title: "See More",
-              value: `<${info.data.web_url}|Go to Dashboard>`,
+              title: "Project",
+              value: project,
               short: true,
+            },
+            // {
+            //   title: "See More",
+            //   value: `<${info.data.web_url}|Go to Dashboard>`,
+            //   short: true,
+            // },
+          ],
+        },
+        {
+          actions: [
+            {
+              type: "button",
+              text: "Go to Dashboard",
+              url: info.data.web_url,
             },
           ],
         },
@@ -159,9 +173,23 @@ app.post("/webhook", async (req, res) => {
               short: true,
             },
             {
-              title: "See More",
-              value: `<${info.data.error.web_url}|Go to Dashboard>`,
+              title: "Project",
+              value: project,
               short: true,
+            },
+            // {
+            //   title: "Project",
+            //   value: `<${info.data.error.web_url}|Go to Dashboard>`,
+            //   short: true,
+            // },
+          ],
+        },
+        {
+          actions: [
+            {
+              type: "button",
+              text: "Go to Dashboard",
+              url: info.data.error.web_url,
             },
           ],
         },
@@ -216,9 +244,23 @@ app.post("/webhook", async (req, res) => {
               short: true,
             },
             {
-              title: "See More",
-              value: `<${info.data.issue.web_url}|Go to Dashboard>`,
+              title: "Project",
+              value: project,
               short: true,
+            },
+            // {
+            //   title: "See More",
+            //   value: `<${info.data.issue.web_url}|Go to Dashboard>`,
+            //   short: true,
+            // },
+          ],
+        },
+        {
+          actions: [
+            {
+              type: "button",
+              text: "Go to Dashboard",
+              url: info.data.issue.web_url,
             },
           ],
         },
@@ -273,9 +315,23 @@ app.post("/webhook", async (req, res) => {
               short: true,
             },
             {
-              title: "See More",
-              value: `<${info.data.event.web_url}|Go to Dashboard>`,
+              title: "Project",
+              value: project,
               short: true,
+            },
+            // {
+            //   title: "See More",
+            //   value: `<${info.data.event.web_url}|Go to Dashboard>`,
+            //   short: true,
+            // },
+          ],
+        },
+        {
+          actions: [
+            {
+              type: "button",
+              text: "Go to Dashboard",
+              url: info.data.event.web_url,
             },
           ],
         },
