@@ -26,7 +26,7 @@ app.post("/webhook", async (req, res) => {
 
   let type = Object.keys(info.data)[0];
 
-  console.log(type);
+  // console.log(type);
 
   let pro =
     type == "error"
@@ -160,6 +160,18 @@ app.post("/webhook", async (req, res) => {
   axios
     .post(SLACK_WEBHOOK_URL, slackMessage)
     .then(() => {
+      console.log(
+        new Date().toLocaleString("en-us", {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+        }),
+        project
+      );
       return res.json({ status: 200 });
     })
     .catch((err) => {
