@@ -118,7 +118,7 @@ app.post("/webhook", async (req, res) => {
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
       color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
-      text: `An Error occured on ${project} . Visit <${info.data.error.datetime}|Dashboard> to see full details.`,
+      text: `An Error occured on ${project} . Visit <${info.data.error.web_ur}|Dashboard> to see full details.`,
       attachments: [
         {
           fields: [
@@ -258,7 +258,7 @@ app.post("/webhook", async (req, res) => {
             },
             {
               title: "Date",
-              value: new Date(info.data.event.date_created).toLocaleString(
+              value: new Date(info.data.event.datetime).toLocaleString(
                 "en-us",
                 {
                   weekday: "long",
@@ -274,7 +274,7 @@ app.post("/webhook", async (req, res) => {
             },
             {
               title: "See More",
-              value: `<${info.data.event.datetime}|Go to Dashboard>`,
+              value: `<${info.data.event.web_url}|Go to Dashboard>`,
               short: true,
             },
           ],
