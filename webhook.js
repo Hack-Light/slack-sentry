@@ -26,7 +26,7 @@ app.post("/webhook", async (req, res) => {
 
   let type = Object.keys(info.data)[0];
 
-  // console.log(info);
+  console.log(info);
   let pro;
   // let pro =
   //   type == "error"
@@ -65,7 +65,7 @@ app.post("/webhook", async (req, res) => {
   // Slack message format
   if (type == "metric_alert") {
     slackMessage = {
-      channel: "#general",
+      channel: "#devops",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
       color: info.action == "critical" ? "#ff0000" : "#00ff00",
@@ -114,7 +114,7 @@ app.post("/webhook", async (req, res) => {
 
   if (type == "error") {
     slackMessage = {
-      channel: "#hello",
+      channel: "#devops",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
       color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
@@ -170,7 +170,7 @@ app.post("/webhook", async (req, res) => {
   }
   if (type == "event") {
     slackMessage = {
-      channel: "#general",
+      channel: "#devops",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
       color: info.data.event.level == "error" ? "#ff0000" : "#00ff00",
