@@ -26,7 +26,7 @@ app.post("/webhook", async (req, res) => {
 
   let type = Object.keys(info.data)[0];
 
-  // console.log(type);
+  console.log(info);
 
   let pro =
     type == "error"
