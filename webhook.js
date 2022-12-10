@@ -225,6 +225,7 @@ app.post("/webhook", async (req, res) => {
       ],
     };
   }
+
   if (type == "event") {
     slackMessage = {
       channel: "#devops",
