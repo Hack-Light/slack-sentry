@@ -46,6 +46,7 @@ app.post("/webhook", async (req, res) => {
   }
 
   let project;
+  let pro;
 
   // try {
   if (pro == "javascript-react" || pro == 4504278718152704) {
