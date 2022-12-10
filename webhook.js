@@ -103,15 +103,8 @@ app.post("/webhook", async (req, res) => {
             },
             {
               title: "See More",
-              // value: `<${info.data.web_url}|Go to Dashboard>`,
+              value: `<${info.data.web_url}|Go to Dashboard>`,
               short: true,
-              actions: [
-                {
-                  type: "button",
-                  text: "Go to Dashboard",
-                  url: `${info.data.web_url}`,
-                },
-              ],
             },
           ],
         },
@@ -167,14 +160,7 @@ app.post("/webhook", async (req, res) => {
             },
             {
               title: "See More",
-              // value: `<${info.data.error.web_url}|Go to Dashboard>`,
-              actions: [
-                {
-                  type: "button",
-                  text: "Go to Dashboard",
-                  url: `${info.data.error.web_url}`,
-                },
-              ],
+              value: `<${info.data.error.web_url}|Go to Dashboard>`,
               short: true,
             },
           ],
@@ -230,14 +216,7 @@ app.post("/webhook", async (req, res) => {
             },
             {
               title: "See More",
-              // value: `<${info.data.event.web_url}|Go to Dashboard>`,
-              actions: [
-                {
-                  type: "button",
-                  text: "Go to Dashboard",
-                  url: `${info.data.event.web_url}`,
-                },
-              ],
+              value: `<${info.data.event.web_url}|Go to Dashboard>`,
               short: true,
             },
           ],
