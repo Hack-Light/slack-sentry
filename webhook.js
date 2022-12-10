@@ -28,10 +28,22 @@ app.post("/webhook", async (req, res) => {
 
   console.log(info);
 
-  let pro =
-    type == "error"
-      ? info.data.error.project
-      : info.data.metric_alert.projects[0];
+  // let pro =
+  //   type == "error"
+  //     ? info.data.error.project
+  //     : info.data.metric_alert.projects[0];
+
+  if (type == "error") {
+    pro = info.data.error.project;
+  }
+
+  if (type == "metric_alert") {
+    pro = info.data.metric_alert.projects[0];
+  }
+
+  if (type == "metric_alert") {
+    pro = info.data.event.project;
+  }
 
   let project;
 
@@ -149,6 +161,62 @@ app.post("/webhook", async (req, res) => {
             {
               title: "See More",
               value: `<${info.data.error.web_url}|Go to Dashboard>`,
+              short: true,
+            },
+          ],
+        },
+      ],
+    };
+  }
+  if (type == "event") {
+    slackMessage = {
+      channel: "#general",
+      // pretext: `${info.data.description_title}`,
+      username: "Streetrates",
+      color: info.data.event.level == "error" ? "#ff0000" : "#00ff00",
+      text: `An Error occured on ${project} . Visit <${info.data.event.web_url}|Dashboard> to see full details.`,
+      attachments: [
+        {
+          fields: [
+            {
+              title: "Level",
+              value: info.data.event.level,
+              short: true,
+            },
+            {
+              title: "URL",
+              value: info.data.event.culprit,
+              short: true,
+            },
+            {
+              title: "Error Message",
+              value: info.data.event.title,
+              short: true,
+            },
+            {
+              title: "Location",
+              value: info.data.event.location,
+              short: true,
+            },
+            {
+              title: "Date",
+              value: new Date(info.data.event.date_created).toLocaleString(
+                "en-us",
+                {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                }
+              ),
+              short: true,
+            },
+            {
+              title: "See More",
+              value: `<${info.data.event.web_url}|Go to Dashboard>`,
               short: true,
             },
           ],
