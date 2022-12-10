@@ -102,7 +102,7 @@ app.post("/webhook", async (req, res) => {
 
   if (type == "error") {
     slackMessage = {
-      channel: "#general",
+      channel: "#hello",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
       color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
