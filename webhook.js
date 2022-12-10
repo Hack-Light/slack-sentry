@@ -5,9 +5,10 @@ const { IncomingWebhook } = require("@slack/webhook");
 const request = require("request");
 const { default: axios } = require("axios");
 
-// https://hooks.slack.com/services/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
 
-const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
+// const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
+
+const SLACK_WEBHOOK_URL = ''
 
 // const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
