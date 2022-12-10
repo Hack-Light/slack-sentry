@@ -118,7 +118,7 @@ app.post("/webhook", async (req, res) => {
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
       color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
-      text: `An Error occured on ${project} . Visit <${info.data.error.web_ur}|Dashboard> to see full details.`,
+      text: `An Error occured on ${project} . Visit <${info.data.error.web_url}|Dashboard> to see full details.`,
       attachments: [
         {
           fields: [
