@@ -5,10 +5,9 @@ const { IncomingWebhook } = require("@slack/webhook");
 const request = require("request");
 const { default: axios } = require("axios");
 
-
 // const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
-const SLACK_WEBHOOK_URL = ''
+const SLACK_WEBHOOK_URL = "";
 
 // const slackWebhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
@@ -69,13 +68,14 @@ app.post("/webhook", async (req, res) => {
       channel: "#devops",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
-      color: info.action == "critical" ? "#ff0000" : "#00ff00",
+
       text:
         pro == "python-fastapi"
           ? `Slow Query Request on ${project}: The request to the API excceded 5 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`
           : `Slow Page Load on ${project}: The request to load page excceded 4 secs. Visit <${info.data.web_url}|Dashboard> to see full details.`,
       attachments: [
         {
+          color: info.action == "critical" ? "danger" : "good",
           fields: [
             {
               title: "Level",
@@ -118,8 +118,9 @@ app.post("/webhook", async (req, res) => {
           actions: [
             {
               type: "button",
-              text: "Go to Dashboard",
+              text: "View Incident",
               url: info.data.web_url,
+              style: "primary",
             },
           ],
         },
@@ -132,10 +133,11 @@ app.post("/webhook", async (req, res) => {
       channel: "#devops",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
-      color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
+
       text: `An Error occured on ${project} . Visit <${info.data.error.web_url}|Dashboard> to see full details.`,
       attachments: [
         {
+          color: info.data.error.level == "error" ? "danger" : "good",
           fields: [
             {
               title: "Level",
@@ -143,7 +145,7 @@ app.post("/webhook", async (req, res) => {
               short: true,
             },
             {
-              title: "Culprit",
+              title: "URL",
               value: info.data.error.culprit,
               short: true,
             },
@@ -189,7 +191,7 @@ app.post("/webhook", async (req, res) => {
           actions: [
             {
               type: "button",
-              text: "Go to Dashboard",
+              text: "View Incident",
               url: info.data.error.web_url,
             },
           ],
@@ -203,10 +205,11 @@ app.post("/webhook", async (req, res) => {
       channel: "#devops",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
-      color: info.data.error.level == "error" ? "#ff0000" : "#00ff00",
+
       text: `An Error occured on ${project} . Visit <${info.data.issue.web_url}|Dashboard> to see full details.`,
       attachments: [
         {
+          color: info.data.error.level == "error" ? "danger" : "good",
           fields: [
             {
               title: "Status",
@@ -214,7 +217,7 @@ app.post("/webhook", async (req, res) => {
               short: true,
             },
             {
-              title: "Culprit",
+              title: "URL",
               value: info.data.issue.culprit,
               short: true,
             },
@@ -260,7 +263,7 @@ app.post("/webhook", async (req, res) => {
           actions: [
             {
               type: "button",
-              text: "Go to Dashboard",
+              text: "View Incident",
               url: info.data.issue.web_url,
             },
           ],
@@ -274,10 +277,11 @@ app.post("/webhook", async (req, res) => {
       channel: "#devops",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
-      color: info.data.event.level == "error" ? "#ff0000" : "#00ff00",
+
       text: `An Error occured on ${project} . Visit <${info.data.event.web_url}|Dashboard> to see full details.`,
       attachments: [
         {
+          color: info.data.event.level == "error" ? "danger" : "good",
           fields: [
             {
               title: "Level",
@@ -331,7 +335,7 @@ app.post("/webhook", async (req, res) => {
           actions: [
             {
               type: "button",
-              text: "Go to Dashboard",
+              text: "View Incident",
               url: info.data.event.web_url,
             },
           ],
