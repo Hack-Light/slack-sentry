@@ -130,7 +130,7 @@ app.post("/webhook", async (req, res) => {
 
   if (type == "error") {
     slackMessage = {
-      channel: "#devops",
+      channel: "#team-streetrates",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
 
@@ -202,7 +202,7 @@ app.post("/webhook", async (req, res) => {
 
   if (type == "issue") {
     slackMessage = {
-      channel: "#devops",
+      channel: "#team-streetrates",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
 
@@ -274,7 +274,7 @@ app.post("/webhook", async (req, res) => {
 
   if (type == "event") {
     slackMessage = {
-      channel: "#devops",
+      channel: "#team-streetrates",
       // pretext: `${info.data.description_title}`,
       username: "Streetrates",
 
